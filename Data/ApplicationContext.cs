@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using publicationsApi.Models;
 
 namespace publicationsApi.Data{
     public class ApplicationContext : DbContext{
@@ -6,5 +7,9 @@ namespace publicationsApi.Data{
             //Database.EnsureCreated();
         }
         
+
+        public DbSet<User>          Users        { get; set; }
+        public DbSet<Publication>   Publications { get; set; }
+        public DbSet<Commentary>    Commentaries { get; set; }
     }
 }
