@@ -1,16 +1,24 @@
 import React from 'react';
 import { getValById } from '../../-functions/getValById';
+import { TokensService } from '../../-services/-base-services/tokens.service';
+import { UsersService } from '../../-services/users.service';
 import './LoginForm.css';
 
 const LOGIN_FIELD_ID    = "loginField";
 const PASSWORD_FIELD_ID = "passwordField";
 
 class LoginForm extends React.Component {
-    authorize(){
+    async authorize(){
         let login    = getValById(LOGIN_FIELD_ID);
         let password = getValById(PASSWORD_FIELD_ID);
-        console.log(`Login: ${login}; Password: ${password}`);
-        //UsersService.authorize(login, password);
+        let response = await UsersService.login(login, password);
+        if(response) {
+            TokensService.setAuthData(response);
+            window.location.reload();
+        }
+        else{
+
+        }
     }
     render() {
         return (
