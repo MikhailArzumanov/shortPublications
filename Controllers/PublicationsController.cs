@@ -29,10 +29,12 @@ namespace publicationsApi.Controllers{
             this.db = context;
             this.config = config;
         }
+
         [HttpGet]
-        public IActionResult GetList([FromQuery] int pageSize, int lastId){
-            var publications = db.Publications.Where(x => lastId == 0 || x.Id < lastId).OrderBy(x => x.Id).Take(pageSize);
-            lastId = publications.ToArray()[pageSize - 1].Id;
+        public IActionResult GetList([FromQuery] int pageSize, [FromQuery] int lastId){
+            var publications = db.Publications.Where(x => lastId == 0 || x.Id < lastId).OrderBy(x => x.Id).Take(pageSize).ToArray();
+            if(publications.Any())
+                lastId = publications.Last().Id;
             return Ok(new { publications = publications, lastId = lastId });
         }
 
