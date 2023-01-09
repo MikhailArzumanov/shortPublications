@@ -41,9 +41,9 @@ export class UsersService extends AuthorizedService{
         return await http.put(url,headers,params,body,false);
     }
 
-    static async redact(userId){
-        let METHOD_NAME = '';
-        let url = `${this.CONTROLLER_URL}/${userId}`;
+    static async ban(userId){
+        let METHOD_NAME = 'admin/ban';
+        let url = `${this.CONTROLLER_URL}/${METHOD_NAME}/${userId}`;
         let headers = {};
             headers['Content-Type'] = "application/json;charset=UTF-8";
         let params = {};
