@@ -1,0 +1,20 @@
+.publicationForm{
+    width: 400px;
+    margin: auto;
+    margin-top: 38px;
+    border: 1px solid black;
+    border-radius: 7px;
+    padding: 20px;
+}
+.publicationForm textarea{
+    width: 99%;
+    margin: 4px 1px;
+}
+
+.publicationForm button{
+    margin-top: 4px;
+    width: 120px;
+    border: 2.1px solid #797979;
+    background: white;
+    padding: 3px;
+}

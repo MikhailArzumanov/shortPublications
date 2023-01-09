@@ -1,0 +1,12 @@
+.publicationBlock{
+    width: 400px;
+    margin: auto;
+    margin-top: 38px;
+    border: 1px solid black;
+    border-radius: 7px;
+    padding: 20px;
+}
+
+.publicationBlock .publicationText{
+    
+}
