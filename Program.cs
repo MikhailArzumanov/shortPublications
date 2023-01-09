@@ -36,6 +36,6 @@ namespace publicationsApi{
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
-                .UseUrls(/*"http://%%%IP%%%:1380",*/ "http://localhost:1380");
+                .UseUrls(/*"http://%%%IP%%%:1389",*/ "http://localhost:1389");
     }
 }
