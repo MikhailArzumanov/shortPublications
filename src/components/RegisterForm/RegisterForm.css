@@ -1,4 +1,4 @@
-.loginForm{
+.registerForm{
     width: 237px;
     margin: auto;
     margin-top: 38px;
@@ -6,19 +6,21 @@
     border-radius: 7px;
     padding: 20px;
 }
-.loginForm input{
+.registerForm input{
     width: 99%;
     margin: 4px 1px;
 }
 
-.loginForm button{
+.registerForm button{
     margin-top: 4px;
+    width: 120px;
     border: 2.1px solid #797979;
     background: white;
     padding: 3px;
 }
 
-.loginForm .buttonsWrapper button{
+
+.registerForm .buttonsWrapper button{
     display: inline-block;
 }
 

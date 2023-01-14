@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App/App';
+import App from './components/App/App';
 import reportWebVitals from './reportWebVitals';
 import { AuthorizedService } from './-services/-base-services/authorized.service';
-import LoginForm from './components/LoginForm/LoginForm';
+import Auth from './components/Auth/Auth';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 if(AuthorizedService.isAuthorized()){
@@ -17,7 +17,7 @@ if(AuthorizedService.isAuthorized()){
 else{
   root.render(
     <React.StrictMode>
-      <LoginForm />
+      <Auth />
     </React.StrictMode>
   );
 }
