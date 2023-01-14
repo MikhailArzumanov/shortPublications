@@ -10,3 +10,17 @@
 .publicationBlock .publicationText{
     
 }
+
+.publicationBlock hr{
+    width: 96%;
+    margin: auto;
+}
+
+.lowerLine{
+
+}
+
+.lowerLine p{
+    display:inline-block;
+    margin: 4px 12px 0 12px;
+}
