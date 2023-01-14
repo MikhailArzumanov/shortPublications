@@ -24,6 +24,7 @@ namespace publicationsApi.Controllers{
         const string AUTH_NOT_FOUND    = "Пользователь с заданным авторизационными данными отсутствует.";
         const string LOGIN_OCCUPIED    = "Логин занят.";
         const string USERNAME_OCCUPIED = "Имя пользователя занято.";
+        const string WAS_BANNED        = "Пользователь был заблокирован.";
         const string USER_TOKEN_TYPE  = "user";
         const string ADMIN_TOKEN_TYPE = "admin";
 
@@ -54,9 +55,11 @@ namespace publicationsApi.Controllers{
         [HttpPost("register")]
         public IActionResult Register([FromBody] FullUser userData){
             var user = userData.toUser();
+            user.Password = PasswordHasher.Hash(user.Password);
             var checkResult = CheckUser(user);
             if (checkResult != "") return BadRequest(checkResult);
             user.IsAdmin = false;
+            user.WasBanned = false;
             db.Users.Add(user);
             db.SaveChanges();
             return Ok(userData);
@@ -65,8 +68,9 @@ namespace publicationsApi.Controllers{
         [Authorize]
         [HttpPut("{id}")]
         public IActionResult RedactEntry([FromRoute] int id, [FromBody] UserRedactionRequest request){
-            var previous = db.Users.FirstOrDefault(x => x.Id == request.userData.Id);
+            var previous = db.Users.FirstOrDefault(x => x.Id == id);
             if (previous == null) return NotFound(ID_NOT_FOUND);
+            if (previous.WasBanned) return BadRequest(WAS_BANNED);
             var login    = request.authData.Login;
             var password = PasswordHasher.Hash(request.authData.Password);
             if (previous.Login != login || previous.Password != password)
@@ -75,6 +79,7 @@ namespace publicationsApi.Controllers{
             var checkResult = CheckUser(user);
             if (checkResult != "") return BadRequest(checkResult);
             user.IsAdmin = false;
+            user.Password = PasswordHasher.Hash(user.Password);
             previous = user;
             db.Users.Update(previous);
             db.SaveChanges();

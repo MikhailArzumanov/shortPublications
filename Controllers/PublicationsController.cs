@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Cors;
 using publicationsApi.Models;
 using publicationsApi.Data;
@@ -32,7 +33,7 @@ namespace publicationsApi.Controllers{
 
         [HttpGet]
         public IActionResult GetList([FromQuery] int pageSize, [FromQuery] int lastId){
-            var publications = db.Publications.Where(x => lastId == 0 || x.Id < lastId).OrderBy(x => x.Id).Take(pageSize).ToArray();
+            var publications = db.Publications.Include(x => x.Author).Where(x => lastId == 0 || x.Id < lastId).OrderBy(x => -x.Id).Take(pageSize).ToArray();
             if(publications.Any())
                 lastId = publications.Last().Id;
             return Ok(new { publications = publications, lastId = lastId });
